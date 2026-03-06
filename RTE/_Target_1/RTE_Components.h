@@ -9,16 +9,18 @@
 #ifndef RTE_COMPONENTS_H
 #define RTE_COMPONENTS_H
 
-/* ARM::CMSIS-Compiler:STDIN:UART&CMSIS@1.0.0 */
+/* ARM::CMSIS-Compiler:STDIN:Custom@1.1.0 */
 #define RTE_CMSIS_Compiler_STDIN                 /* CMSIS-Compiler STDIN */
-#define RTE_CMSIS_Compiler_STDIN_UART_CMSIS      /* CMSIS-Compiler STDIN: UART: CMSIS */
-/* ARM::CMSIS-Compiler:STDOUT:UART&CMSIS@1.0.0 */
+#define RTE_CMSIS_Compiler_STDIN_Custom          /* CMSIS-Compiler STDIN: Custom */
+/* ARM::CMSIS-Compiler:STDOUT:Custom@1.1.0 */
 #define RTE_CMSIS_Compiler_STDOUT                /* CMSIS-Compiler STDOUT */
-#define RTE_CMSIS_Compiler_STDOUT_UART_CMSIS     /* CMSIS-Compiler STDOUT: UART: CMSIS */
+#define RTE_CMSIS_Compiler_STDOUT_Custom         /* CMSIS-Compiler STDOUT: Custom */
 /* ARM::CMSIS:RTOS2:Keil RTX5&Source@5.9.1 */
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
 #define RTE_CMSIS_RTOS2_RTX5            /* CMSIS-RTOS2 Keil RTX5 */
 #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
+/* Keil::CMSIS Driver:GPIO@1.2.0 */
+#define RTE_Drivers_GPIO0               /* Driver GPIO0 */
 /* Keil::CMSIS Driver:USART@3.0.0 */
 #define RTE_CMSIS_Driver_USART1         /* Driver USART1  */
 #define RTE_CMSIS_Driver_USART2         /* Driver USART2  */

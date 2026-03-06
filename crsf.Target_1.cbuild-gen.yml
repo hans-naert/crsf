@@ -10,25 +10,17 @@ build-gen:
     fpu: sp
   add-path: 
   components:
+    - component: ARM::CMSIS Driver:VIO:Custom@1.0.0
+      from-pack: ARM::CMSIS@6.3.0
     - component: ARM::CMSIS-Compiler:CORE@1.2.0
       from-pack: ARM::CMSIS-Compiler@2.2.0
       files:
         - file: C:/Users/hansn/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.2.0/source/core/armcc/retarget_io.c
           category: sourceC
-        - file: C:/Users/hansn/AppData/Local/Arm/Packs/ARM/CMSIS-Compiler/2.2.0/source/core/stdio_cmsis_uart.c
-          category: sourceC
-        - file: D:/Drones/Radio/crsf/RTE/CMSIS-Compiler/stdio_cmsis_uart_config.h
-          category: header
-    - component: ARM::CMSIS-Compiler:STDIN:UART&CMSIS@1.0.0
+    - component: ARM::CMSIS-Compiler:STDIN:Custom@1.1.0
       from-pack: ARM::CMSIS-Compiler@2.2.0
-      files:
-        - file: D:/Drones/Radio/crsf/RTE/CMSIS-Compiler/stdin_cmsis_uart_config.h
-          category: header
-    - component: ARM::CMSIS-Compiler:STDOUT:UART&CMSIS@1.0.0
+    - component: ARM::CMSIS-Compiler:STDOUT:Custom@1.1.0
       from-pack: ARM::CMSIS-Compiler@2.2.0
-      files:
-        - file: D:/Drones/Radio/crsf/RTE/CMSIS-Compiler/stdout_cmsis_uart_config.h
-          category: header
     - component: ARM::CMSIS:CORE@6.2.0
       from-pack: ARM::CMSIS@6.3.0
     - component: ARM::CMSIS:OS Tick:SysTick@1.0.5
@@ -71,6 +63,11 @@ build-gen:
           category: sourceC
         - file: D:/Drones/Radio/crsf/RTE/CMSIS/RTX_Config.h
           category: header
+    - component: Keil::CMSIS Driver:GPIO@1.2.0
+      from-pack: ARM::CMSIS-Driver_STM32@1.3.0
+      files:
+        - file: C:/Users/hansn/AppData/Local/Arm/Packs/ARM/CMSIS-Driver_STM32/1.3.0/Drivers/GPIO_STM32.c
+          category: sourceC
     - component: Keil::CMSIS Driver:USART@3.0.0
       from-pack: ARM::CMSIS-Driver_STM32@1.3.0
       files:
@@ -79,7 +76,11 @@ build-gen:
     - component: Keil::Device:CubeMX@1.0.0
       from-pack: Keil::STM32L4xx_DFP@3.1.0
   apis:
+    - api: CMSIS Driver:GPIO(API)@1.0.0
+      from-pack: ARM::CMSIS@6.3.0
     - api: CMSIS Driver:USART(API)@2.4.0
+      from-pack: ARM::CMSIS@6.3.0
+    - api: CMSIS Driver:VIO(API)@1.0.0
       from-pack: ARM::CMSIS@6.3.0
     - api: CMSIS-Compiler:STDIN(API)@1.1.0
       from-pack: ARM::CMSIS-Compiler@2.2.0
@@ -91,4 +92,10 @@ build-gen:
       from-pack: ARM::CMSIS@6.3.0
   groups:
     - group: Source Group 1
-      files: 
+      files:
+        - file: D:/Drones/Radio/crsf/Blinky.c
+          category: sourceC
+        - file: D:/Drones/Radio/crsf/retarget_stdio.c
+          category: sourceC
+        - file: D:/Drones/Radio/crsf/vio_NUCLEO-L476RG.c
+          category: sourceC
