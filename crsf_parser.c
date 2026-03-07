@@ -56,63 +56,77 @@ void crsf_parser_init(crsf_parser_t *parser) {
 bool crsf_parser_feed_byte(crsf_parser_t *parser, uint8_t byte, crsf_frame_t *frame_out) {
   uint8_t frame_length;
   uint8_t payload_length;
+  uint8_t frame_size;
   uint8_t crc_rx;
   uint8_t crc_calc;
+  uint8_t trailing;
 
   if ((parser == NULL) || (frame_out == NULL)) {
     return false;
   }
 
-  if (parser->index == 0U) {
-    parser->buffer[0] = byte;
-    parser->index = 1U;
-    return false;
-  }
-
-  if (parser->index == 1U) {
-    if ((byte < CRSF_FRAME_LENGTH_MIN) || (byte > CRSF_FRAME_LENGTH_MAX)) {
-      /* Re-sync: this byte can be the next frame's address. */
-      parser->buffer[0] = byte;
-      parser->index = 1U;
-      parser->expected_length = 0U;
-      return false;
-    }
-
-    parser->buffer[1] = byte;
-    parser->expected_length = (uint8_t)(byte + 2U);
-    parser->index = 2U;
-    return false;
+  if (parser->index >= CRSF_FRAME_SIZE_MAX) {
+    /* Buffer is full of undecodable bytes: drop oldest byte and keep sliding. */
+    (void)memmove(parser->buffer, &parser->buffer[1], (size_t)(CRSF_FRAME_SIZE_MAX - 1U));
+    parser->index = (uint8_t)(CRSF_FRAME_SIZE_MAX - 1U);
   }
 
   parser->buffer[parser->index++] = byte;
 
-  if (parser->index < parser->expected_length) {
-    return false;
-  }
+  /*
+    Sliding parser:
+    - Byte 0 is candidate address.
+    - Byte 1 is candidate length.
+    - On invalid length or CRC failure, slide by one byte and retry.
+  */
+  while (parser->index >= 2U) {
+    frame_length = parser->buffer[1];
 
-  frame_length = parser->buffer[1];
-  payload_length = (uint8_t)(frame_length - 2U);
-
-  crc_rx = parser->buffer[parser->expected_length - 1U];
-  crc_calc = crsf_crc8_dvb_s2_buffer(&parser->buffer[2], (uint8_t)(frame_length - 1U));
-
-  if ((payload_length <= CRSF_PAYLOAD_SIZE_MAX) && (crc_rx == crc_calc)) {
-    frame_out->device_address = parser->buffer[0];
-    frame_out->frame_length = frame_length;
-    frame_out->type = parser->buffer[2];
-    frame_out->payload_length = payload_length;
-    frame_out->crc = crc_rx;
-
-    if (payload_length > 0U) {
-      memcpy(frame_out->payload, &parser->buffer[3], payload_length);
+    if ((frame_length < CRSF_FRAME_LENGTH_MIN) || (frame_length > CRSF_FRAME_LENGTH_MAX)) {
+      (void)memmove(parser->buffer, &parser->buffer[1], (size_t)(parser->index - 1U));
+      parser->index--;
+      parser->expected_length = 0U;
+      continue;
     }
 
-    parser->index = 0U;
+    frame_size = (uint8_t)(frame_length + 2U);
+    parser->expected_length = frame_size;
+
+    if (parser->index < frame_size) {
+      return false;
+    }
+
+    payload_length = (uint8_t)(frame_length - 2U);
+    crc_rx = parser->buffer[frame_size - 1U];
+    crc_calc = crsf_crc8_dvb_s2_buffer(&parser->buffer[2], (uint8_t)(frame_length - 1U));
+
+    if ((payload_length <= CRSF_PAYLOAD_SIZE_MAX) && (crc_rx == crc_calc)) {
+      frame_out->device_address = parser->buffer[0];
+      frame_out->frame_length = frame_length;
+      frame_out->type = parser->buffer[2];
+      frame_out->payload_length = payload_length;
+      frame_out->crc = crc_rx;
+
+      if (payload_length > 0U) {
+        memcpy(frame_out->payload, &parser->buffer[3], payload_length);
+      }
+
+      trailing = (uint8_t)(parser->index - frame_size);
+      if (trailing > 0U) {
+        (void)memmove(parser->buffer, &parser->buffer[frame_size], trailing);
+      }
+
+      parser->index = trailing;
+      parser->expected_length = 0U;
+      return true;
+    }
+
+    /* CRC failed: slide by one byte and retry lock on next candidate. */
+    (void)memmove(parser->buffer, &parser->buffer[1], (size_t)(parser->index - 1U));
+    parser->index--;
     parser->expected_length = 0U;
-    return true;
   }
 
-  parser->index = 0U;
   parser->expected_length = 0U;
   return false;
 }
