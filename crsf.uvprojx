@@ -390,6 +390,11 @@
               <FilePath>.\Blinky.c</FilePath>
             </File>
             <File>
+              <FileName>loopback_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\loopback_test.c</FilePath>
+            </File>
+            <File>
               <FileName>retarget_stdio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\retarget_stdio.c</FilePath>

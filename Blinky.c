@@ -21,6 +21,7 @@
 #include "main.h"
 #include "cmsis_os2.h"
 #include "cmsis_vio.h"
+#include "loopback_test.h"
 
 /* Thread attributes for the app_main thread */
 static const osThreadAttr_t thread_attr_main = { .name = "app_main" };
@@ -99,6 +100,11 @@ __NO_RETURN void app_main_thread (void *argument) {
   /* Create LED and Button threads */
   tid_LED = osThreadNew(thread_LED, NULL, &thread_attr_LED);
   tid_Button = osThreadNew(thread_Button, NULL, &thread_attr_Button);
+
+  /* Start UART4 loopback test thread */
+  if (loopback_test_start() != 0) {
+    printf("Failed to start UART4 loopback test\n");
+  }
 
   for (;;) {
     /* Delay indefinitely */
