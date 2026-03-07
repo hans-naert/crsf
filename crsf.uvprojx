@@ -395,6 +395,16 @@
               <FilePath>.\loopback_test.c</FilePath>
             </File>
             <File>
+              <FileName>crsf_parser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\crsf_parser.c</FilePath>
+            </File>
+            <File>
+              <FileName>crsf_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\crsf_test.c</FilePath>
+            </File>
+            <File>
               <FileName>retarget_stdio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\retarget_stdio.c</FilePath>

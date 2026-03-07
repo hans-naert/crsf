@@ -17,7 +17,7 @@
  * limitations under the License.
  *
  *      Name:    loopback_test.h
- *      Purpose: UART4 Loopback Test
+ *      Purpose: UART4 loopback test entry
  *
  *---------------------------------------------------------------------------*/
 
