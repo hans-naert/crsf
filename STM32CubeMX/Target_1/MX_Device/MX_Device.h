@@ -1,6 +1,6 @@
 /******************************************************************************
  * File Name   : MX_Device.h
- * Date        : 06/03/2026 21:36:03
+ * Date        : 07/03/2026 13:05:34
  * Description : STM32Cube MX parameter definitions
  * Note        : This file is generated with a generator out of the
  *               STM32CubeMX project and its generated files (DO NOT EDIT!)
@@ -12,6 +12,29 @@
 /* MX_Device.h version */
 #define MX_DEVICE_VERSION                       0x01000000
 
+
+/*------------------------------ UART4          -----------------------------*/
+#define MX_UART4                                1
+
+/* Pins */
+
+/* UART4_RX */
+#define MX_UART4_RX_Pin                         PA1
+#define MX_UART4_RX_GPIO_Pin                    GPIO_PIN_1
+#define MX_UART4_RX_GPIOx                       GPIOA
+#define MX_UART4_RX_GPIO_Mode                   GPIO_MODE_AF_PP
+#define MX_UART4_RX_GPIO_PuPd                   GPIO_NOPULL
+#define MX_UART4_RX_GPIO_Speed                  GPIO_SPEED_FREQ_VERY_HIGH
+#define MX_UART4_RX_GPIO_AF                     GPIO_AF8_UART4
+
+/* UART4_TX */
+#define MX_UART4_TX_Pin                         PA0
+#define MX_UART4_TX_GPIO_Pin                    GPIO_PIN_0
+#define MX_UART4_TX_GPIOx                       GPIOA
+#define MX_UART4_TX_GPIO_Mode                   GPIO_MODE_AF_PP
+#define MX_UART4_TX_GPIO_PuPd                   GPIO_NOPULL
+#define MX_UART4_TX_GPIO_Speed                  GPIO_SPEED_FREQ_VERY_HIGH
+#define MX_UART4_TX_GPIO_AF                     GPIO_AF8_UART4
 
 /*------------------------------ USART2         -----------------------------*/
 #define MX_USART2                               1
