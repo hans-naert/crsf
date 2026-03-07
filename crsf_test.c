@@ -276,13 +276,18 @@ int crsf_test_start(void) {
     return -1;
   }
 
-  /* Create threads FIRST so tid_crsf_rx is valid for callback */
+	/* Create threads FIRST so tid_crsf_rx is valid for callback */
   tid_crsf_rx = osThreadNew(thread_crsf_rx, NULL, &thread_attr_crsf_rx);
-  tid_crsf_tx = osThreadNew(thread_crsf_tx, NULL, &thread_attr_crsf_tx);
-
-  if ((tid_crsf_rx == NULL) || (tid_crsf_tx == NULL)) {
+	if (tid_crsf_rx == NULL) {
     return -1;
   }
+	
+	#ifdef CRSF_TX_DUMMY
+  tid_crsf_tx = osThreadNew(thread_crsf_tx, NULL, &thread_attr_crsf_tx);
+	if (tid_crsf_tx == NULL){
+    return -1;
+  }	
+	#endif		
 
   /* Now start reception - tid_crsf_rx is valid for callback */
   if (uart4_start_receive() != 0) {
