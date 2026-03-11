@@ -25,6 +25,8 @@
 #include "cmsis_vio.h"
 #include "rl_net.h"                     // Keil::Network&MDK:CORE
 
+#include "crsf_test.h"
+
 static osThreadId_t tid_thrLED;         // Thread id of thread: LED
 static osThreadId_t tid_thrButton;      // Thread id of thread: Button
 
@@ -113,6 +115,8 @@ __NO_RETURN void app_main_thread (void *argument) {
     netIP_ntoa(NET_ADDR_IP6, ip_addr, ip_ascii, sizeof(ip_ascii));
     printf("IP6: %s\n", ip_ascii);
 	}
+											
+	crsf_test_start();
 	
 	osThreadExit();
 	
