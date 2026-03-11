@@ -5,10 +5,14 @@
 #include "main.h"
 #include <stdio.h>
 
-#define ID_FRAMEWIN_0     (GUI_ID_USER + 0x00)
-#define ID_BUTTON_0     (GUI_ID_USER + 0x01)
-#define ID_CHECKBOX_0     (GUI_ID_USER + 0x02)
-#define ID_TEXT_0     (GUI_ID_USER + 0x03)
+#define ID_FRAMEWIN_0 (GUI_ID_USER + 0x00)
+#define ID_BUTTON_0 (GUI_ID_USER + 0x01)
+#define ID_CHECKBOX_0 (GUI_ID_USER + 0x02)
+#define ID_TEXT_0 (GUI_ID_USER + 0x03)
+#define ID_PROGBAR_0 (GUI_ID_USER + 0x05)
+#define ID_PROGBAR_1 (GUI_ID_USER + 0x06)
+#define ID_PROGBAR_2 (GUI_ID_USER + 0x07)
+#define ID_PROGBAR_3 (GUI_ID_USER + 0x08)
 
 extern int  GUI_VNC_X_StartServer(int, int);
 
@@ -50,6 +54,15 @@ __NO_RETURN static void GUIThread (void *argument) {
 	WM_HWIN hWin = CreateFramewin();
 	
 	WM_HWIN hItem = WM_GetDialogItem(hWin, ID_TEXT_0);
+  WM_HWIN hProg0 = WM_GetDialogItem(hWin, ID_PROGBAR_0);
+  WM_HWIN hProg1 = WM_GetDialogItem(hWin, ID_PROGBAR_1);
+  WM_HWIN hProg2 = WM_GetDialogItem(hWin, ID_PROGBAR_2);
+  WM_HWIN hProg3 = WM_GetDialogItem(hWin, ID_PROGBAR_3);
+  PROGBAR_SetMinMax(hProg0, -2000, 2000);
+  PROGBAR_SetMinMax(hProg1, -2000, 2000);
+  PROGBAR_SetMinMax(hProg2, -2000, 2000);
+  PROGBAR_SetMinMax(hProg3, -2000, 2000);
+  PROGBAR_SetValue(hProg0, 10);   
   
 	int time=0;
 	  

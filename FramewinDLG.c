@@ -29,10 +29,14 @@
 *
 **********************************************************************
 */
-#define ID_FRAMEWIN_0     (GUI_ID_USER + 0x00)
-#define ID_BUTTON_0     (GUI_ID_USER + 0x01)
-#define ID_CHECKBOX_0     (GUI_ID_USER + 0x02)
-#define ID_TEXT_0     (GUI_ID_USER + 0x03)
+#define ID_FRAMEWIN_0 (GUI_ID_USER + 0x00)
+#define ID_BUTTON_0 (GUI_ID_USER + 0x01)
+#define ID_CHECKBOX_0 (GUI_ID_USER + 0x02)
+#define ID_TEXT_0 (GUI_ID_USER + 0x03)
+#define ID_PROGBAR_0 (GUI_ID_USER + 0x05)
+#define ID_PROGBAR_1 (GUI_ID_USER + 0x06)
+#define ID_PROGBAR_2 (GUI_ID_USER + 0x07)
+#define ID_PROGBAR_3 (GUI_ID_USER + 0x08)
 
 
 // USER START (Optionally insert additional defines)
@@ -54,9 +58,13 @@
 */
 static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
   { FRAMEWIN_CreateIndirect, "Framewin", ID_FRAMEWIN_0, 0, 0, 480, 272, 0, 0x0, 0 },
-  { BUTTON_CreateIndirect, "Button", ID_BUTTON_0, 157, 96, 80, 20, 0, 0x0, 0 },
-  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_0, 160, 52, 80, 20, 0, 0x0, 0 },
+  { BUTTON_CreateIndirect, "Button", ID_BUTTON_0, 159, 2, 80, 20, 0, 0x0, 0 },
+  { CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_0, 78, 1, 80, 20, 0, 0x0, 0 },
   { TEXT_CreateIndirect, "Text", ID_TEXT_0, 0, 0, 80, 20, 0, 0x0, 0 },
+  { PROGBAR_CreateIndirect, "Progbar", ID_PROGBAR_0, 15, 33, 400, 40, 0, 0x0, 0 },
+  { PROGBAR_CreateIndirect, "Progbar", ID_PROGBAR_1, 15, 87, 400, 40, 0, 0x0, 0 },
+  { PROGBAR_CreateIndirect, "Progbar", ID_PROGBAR_2, 15, 144, 400, 40, 0, 0x0, 0 },
+  { PROGBAR_CreateIndirect, "Progbar", ID_PROGBAR_3, 17, 202, 400, 40, 0, 0x0, 0 },
   // USER START (Optionally insert additional widgets)
   // USER END
 };
