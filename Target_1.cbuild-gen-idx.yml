@@ -4,10 +4,10 @@ build-gen-idx:
     - board: 
       device: STM32F746NGHx
       id: CubeMX
-      output: D:/projecten/IoT-Systems-Advanced/bridge/STM32CubeMX/Target_1/
+      output: D:/Drones/ontvanger/STM32F746G-DISCO-crsf/STM32CubeMX/Target_1/
       project-type: single-core
       cbuild-gens:
-        - cbuild-gen: D:/projecten/IoT-Systems-Advanced/bridge/STM32F746G-DISCO-GUI_VNC-uvision.Target_1.cbuild-gen.yml
+        - cbuild-gen: D:/Drones/ontvanger/STM32F746G-DISCO-crsf/STM32F746G-DISCO-GUI_VNC-uvision.Target_1.cbuild-gen.yml
           configuration: .Target_1
-          name: D:/projecten/IoT-Systems-Advanced/bridge/STM32CubeMX/Target_1/STM32F746G-DISCO-GUI_VNC-uvision.cgen.yml
+          name: D:/Drones/ontvanger/STM32F746G-DISCO-crsf/STM32CubeMX/Target_1/STM32F746G-DISCO-GUI_VNC-uvision.cgen.yml
           project: STM32F746G-DISCO-GUI_VNC-uvision

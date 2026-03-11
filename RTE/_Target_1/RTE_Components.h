@@ -22,7 +22,7 @@
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
 #define RTE_CMSIS_RTOS2_RTX5            /* CMSIS-RTOS2 Keil RTX5 */
 #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
-/* Keil::CMSIS Driver:Ethernet MAC@3.1.0 */
+/* Keil::CMSIS Driver:Ethernet MAC@3.2.0 */
 #define RTE_Drivers_ETH_MAC0            /* Driver ETH_MAC0 */
 /* Keil::CMSIS Driver:Ethernet PHY:LAN8742A@1.3.0 */
 #define RTE_Drivers_PHY_LAN8742A        /* Driver PHY LAN8742A */
@@ -51,16 +51,16 @@
 /* Keil::Device:CubeMX@1.0.0 */
 #define RTE_DEVICE_CUBE_MX
 #define CMSIS_device_header "stm32f7xx.h"
-/* Keil::Network&MDK:CORE@8.1.0 */
+/* Keil::Network&MDK:CORE@8.2.0 */
 #define RTE_Network_Core                /* Network Core */
-/* Keil::Network&MDK:Interface:ETH@8.1.0 */
+/* Keil::Network&MDK:Interface:ETH@8.2.0 */
 #define RTE_Network_Interface_ETH_0     /* Network Interface ETH 0 */
 
-/* Keil::Network&MDK:Socket:BSD@8.1.0 */
+/* Keil::Network&MDK:Socket:BSD@8.2.0 */
 #define RTE_Network_Socket_BSD          /* Network Socket BSD */
-/* Keil::Network&MDK:Socket:TCP@8.1.0 */
+/* Keil::Network&MDK:Socket:TCP@8.2.0 */
 #define RTE_Network_Socket_TCP          /* Network Socket TCP */
-/* Keil::Network&MDK:Socket:UDP@8.1.0 */
+/* Keil::Network&MDK:Socket:UDP@8.2.0 */
 #define RTE_Network_Socket_UDP          /* Network Socket UDP */
 /* Segger::Graphics&MDK-Pro:CORE@6.32.3 */
 #define RTE_Graphics_Core               /* Graphics Core */
