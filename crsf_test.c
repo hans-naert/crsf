@@ -136,6 +136,7 @@ static void print_decoded_channels(const crsf_channel_data_t *channels) {
   }
 }
 
+crsf_channel_data_t channels;
 /*
   Always-active UART RX decoder thread.
   Waits for interrupt/DMA completion and processes completed buffers.
@@ -143,7 +144,7 @@ static void print_decoded_channels(const crsf_channel_data_t *channels) {
 static __NO_RETURN void thread_crsf_rx(void *argument) {
   crsf_parser_t parser;
   crsf_frame_t frame;
-  crsf_channel_data_t channels;
+  
   uint32_t frame_count = 0U;
   uint32_t decoded_count = 0U;
   uint32_t last_overflow_count = 0U;

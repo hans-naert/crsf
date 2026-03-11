@@ -4,6 +4,9 @@
 #include "DIALOG.h"
 #include "main.h"
 #include <stdio.h>
+#include "crsf_parser.h"
+
+extern crsf_channel_data_t channels;
 
 #define ID_FRAMEWIN_0 (GUI_ID_USER + 0x00)
 #define ID_BUTTON_0 (GUI_ID_USER + 0x01)
@@ -44,6 +47,7 @@ static int _DrawCenteredProgbarSkin(const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo)
     int width;
     int halfWidth;
     int centerX;
+    int centerValue;
     int fill;
 
     hObj = (PROGBAR_Handle)pDrawItemInfo->hWin;
@@ -58,18 +62,19 @@ static int _DrawCenteredProgbarSkin(const WIDGET_ITEM_DRAW_INFO * pDrawItemInfo)
     width = x1 - x0 + 1;
     halfWidth = width / 2;
     centerX = x0 + halfWidth;
+    centerValue = minValue + ((maxValue - minValue) / 2);
 
     GUI_SetColor(GUI_WHITE);
     GUI_FillRect(x0, y0, x1, y1);
 
-    if ((value < 0) && (minValue < 0)) {
-      fill = ((-value) * halfWidth) / (-minValue);
+    if ((value < centerValue) && (centerValue > minValue)) {
+      fill = ((centerValue - value) * halfWidth) / (centerValue - minValue);
       if (fill > 0) {
         GUI_SetColor(GUI_RED);
         GUI_FillRect(centerX - fill, y0 + 1, centerX - 1, y1 - 1);
       }
-    } else if ((value > 0) && (maxValue > 0)) {
-      fill = (value * halfWidth) / maxValue;
+    } else if ((value > centerValue) && (maxValue > centerValue)) {
+      fill = ((value - centerValue) * halfWidth) / (maxValue - centerValue);
       if (fill > 0) {
         GUI_SetColor(GUI_GREEN);
         GUI_FillRect(centerX, y0 + 1, centerX + fill - 1, y1 - 1);
@@ -117,6 +122,8 @@ __NO_RETURN static void GUIThread (void *argument) {
   (void)argument;
 
   GUI_Init();           /* Initialize the Graphics Component */
+  WM_MULTIBUF_Enable(1);
+  WM_SetCreateFlags(WM_CF_MEMDEV);
 	
 	GUI_VNC_X_StartServer(0,0);
 
@@ -132,14 +139,14 @@ __NO_RETURN static void GUIThread (void *argument) {
   PROGBAR_SetSkin(hProg1, _DrawCenteredProgbarSkin);
   PROGBAR_SetSkin(hProg2, _DrawCenteredProgbarSkin);
   PROGBAR_SetSkin(hProg3, _DrawCenteredProgbarSkin);
-  PROGBAR_SetMinMax(hProg0, -PROGBAR_ABS_MAX, PROGBAR_ABS_MAX);
-  PROGBAR_SetMinMax(hProg1, -PROGBAR_ABS_MAX, PROGBAR_ABS_MAX);
-  PROGBAR_SetMinMax(hProg2, -PROGBAR_ABS_MAX, PROGBAR_ABS_MAX);
-  PROGBAR_SetMinMax(hProg3, -PROGBAR_ABS_MAX, PROGBAR_ABS_MAX);
+  PROGBAR_SetMinMax(hProg0, 0, PROGBAR_ABS_MAX);
+  PROGBAR_SetMinMax(hProg1, 0, PROGBAR_ABS_MAX);
+  PROGBAR_SetMinMax(hProg2, 0, PROGBAR_ABS_MAX);
+  PROGBAR_SetMinMax(hProg3, 0, PROGBAR_ABS_MAX);
   PROGBAR_SetValue(hProg0, 100);
-  PROGBAR_SetValue(hProg1, -800);
-  PROGBAR_SetValue(hProg2, 1000);
-  PROGBAR_SetValue(hProg3, -2000);
+  PROGBAR_SetValue(hProg1, 800);
+  PROGBAR_SetValue(hProg2, 1200);
+  PROGBAR_SetValue(hProg3, 1900);
   
 	int time=0;
 	  
@@ -151,6 +158,11 @@ __NO_RETURN static void GUIThread (void *argument) {
 			sprintf(buffer,"%d",time);
 			TEXT_SetText(hItem,buffer);
 		};
+		
+		PROGBAR_SetValue(hProg0, channels.channel[0]);
+		PROGBAR_SetValue(hProg1, channels.channel[1]-500);
+		PROGBAR_SetValue(hProg2, channels.channel[2]+500);
+		PROGBAR_SetValue(hProg3, channels.channel[3]+1000);
     
     /* All GUI related activities might only be called from here */
     GUI_TOUCH_Exec();             /* Execute Touchscreen support */
